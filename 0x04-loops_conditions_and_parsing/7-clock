@@ -6,7 +6,7 @@
 # You must use the while loop (for and until are forbidden)
 
 i=0
-while (( i < 12 ))
+while (( i != 13 ))
 do
 	echo "Hour: $i"
 	j=1
