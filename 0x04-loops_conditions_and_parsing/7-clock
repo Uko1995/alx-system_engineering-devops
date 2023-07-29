@@ -5,19 +5,16 @@
 # Requirements:
 # You must use the while loop (for and until are forbidden)
 
-i=1
-while (( i <= 13 ))
+i=0
+while (( i < 12 ))
 do
-	(( j=1 ))
+	echo "Hour: $i"
+	j=1
 	while (( j <= 59 ))
 	do
 		echo $j
 		(( j++ ))
 	done
-	if (( i <= 12 ))
-	then
-		echo "Hour: $i"
-	fi
 	(( i++ ))
 done
 
