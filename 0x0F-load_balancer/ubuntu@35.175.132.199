@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# installing Nginx on a remote server
+
+sudo apt-get update -y
+sudo apt-get install nginx -y
+server_name = $(hostname)
+echo "Hello World!"  | sudo tee /var/www/html/index.html
+sudo sed -i "50i \\\t\tadd_header X-Served-By '$server_name';" /etc/nginx/sites-available/default
+service nginx restart
