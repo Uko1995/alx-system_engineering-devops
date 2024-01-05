@@ -17,7 +17,7 @@ def todo(employee_id):
     completed = [task for task in tasks if task.get("completed")]
     completed_tasks = len(completed)
 
-    print(f"Employee {employee} is done with\
+    print(f"Employee {employee} is done with \
 tasks({completed_tasks}/{total_tasks}):")
     for t in completed:
         print(f"\t {t.get('title')}")
