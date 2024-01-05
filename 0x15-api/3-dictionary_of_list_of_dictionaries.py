@@ -12,7 +12,7 @@ def export_all_to_json():
     all_tasks = {}
 
     for user in users:
-        user_id = user.get("userId")
+        user_id = user.get("id")
         employee = user.get("username")
 
         tasks = requests.get(f"{base_url}/todos?userId={user_id}").json()
