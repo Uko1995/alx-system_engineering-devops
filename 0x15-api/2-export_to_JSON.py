@@ -12,7 +12,7 @@ def export_to_json(employee_id):
     user_url = f"{base_url}/users/{employee_id}"
     todo_url = f"{base_url}/todos?userId={employee_id}"
 
-    employee = requests.get(user_url).json().get("name")
+    employee = requests.get(user_url).json().get("username")
     tasks = requests.get(todo_url).json()
     json_file = f"{employee_id}.json"
     order = []
