@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Script that sets information about subdomains.
+
+domain_information() {
+    local domain="$1"
+    local subdomain="$2"
+    local line
+    line=$(dig "$subdomain"."$domain" +short)
+    if [ -n "$line" ]; then
+        echo "The subdomain $subdomain is a $(dig "$subdomain"."$domain" +short -t CNAME)" record and points to $line
+    else
+        echo "The subdomain $subdomain does not exist for $domain"
+    fi
+}
+
+if [ "$#" -eq 1 ]; then
+    for subdomain in "www" "lb-01" "web-01" "web-02"; do
+        domain_information "$1" "$subdomain"
+    done
+elif [ "$#" -eq 2 ]; then
+    domain_information "$1" "$2"
+else
+    echo "Usage: $0 <domain> [subdomain]"
+fi
+#!/usr/bin/env bash
+# Script that sets information about subdomains.
+
+domain_information() {
+    local domain="$1"
+    local subdomain="$2"
+    local line
+    line=$(dig "$subdomain"."$domain" +short)
+    if [ -n "$line" ]; then
+        echo "The subdomain $subdomain is a $(dig "$subdomain"."$domain" +short -t CNAME)" record and points to $line
+    else
+        echo "The subdomain $subdomain does not exist for $domain"
+    fi
+}
+
+if [ "$#" -eq 1 ]; then
+    for subdomain in "www" "lb-01" "web-01" "web-02"; do
+        domain_information "$1" "$subdomain"
+    done
+elif [ "$#" -eq 2 ]; then
+    domain_information "$1" "$2"
+else
+    echo "Usage: $0 <domain> [subdomain]"
+fi
+

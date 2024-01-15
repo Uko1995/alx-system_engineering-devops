@@ -1,0 +1,41 @@
+global
+    log 127.0.0.1 local0 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+defaults
+    log global
+    mode http
+    option forwardfor
+    option http-server-close
+    option httplog
+    option dontlognull
+    timeout connect 5000
+    timeout client  5000
+    timeout server  5000
+    timeout tunnel  2h  #this is for websocket connections, 2 hours inactivity timeout
+    timeout client-fin 5000
+    errorfile 400 /etc/haproxy/errors/400.http
+    errorfile 403 /etc/haproxy/errors/403.http
+    errorfile 408 /etc/haproxy/errors/408.http
+    errorfile 500 /etc/haproxy/errors/500.http
+    errorfile 502 /etc/haproxy/errors/502.http
+    errorfile 503 /etc/haproxy/errors/503.http
+    errorfile 504 /etc/haproxy/errors/504.http
+
+frontend www-http
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/certs/www.aiclinic.tech.pem
+    http-request redirect location https://www.aiclinic.tech code 301 if ! { ssl_fc }
+    http-request redirect scheme https unless { ssl_fc }
+    http-request set-header X-Forwarded-Proto https
+    default_backend www-backend
+
+backend www-backend
+    balance roundrobin
+
+    server 355051-web-01 3.90.70.201:80 check
+    server 355051-web-02 100.26.239.192:80 check
+
+backend letsencrypt-backend
+    server letsencrypt 127.0.0.1:54321
