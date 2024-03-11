@@ -1,4 +1,5 @@
-# fixes the bug in the file
+# fixes the bug in the file an makes it work
+
 exec {'replaces wrong php filetype':
   command => 'sed -i "s/.phpp/.php/g" /var/www/html/wp-settings.php',
   path    => '/bin/:/sbin/:/usr/bin/:/usr/sbin/',
